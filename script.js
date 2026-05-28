@@ -51,6 +51,15 @@ const GAMES = [
         tutorialIos:     "",   // ID do vídeo YouTube para iPhone
         tutorialAndroid: "",   // ID do vídeo YouTube para Android (usa defaultTutorialAndroid se vazio)
     },
+    {
+        slug:            "CHBV-PKM-01/20-OG",
+        title:           "Pokémon Yellow Version",
+        cover:           "https://i.ibb.co/q38VfKFJ/chaveboy-01.jpg",
+        download:        "https://drive.google.com/file/d/1ly7pXkRv7xXXiK_rVvrilv3ALWVqu1ei/view?usp=sharing",
+        deltaLink:       "",   // Adicionar depois
+        tutorialIos:     "",
+        tutorialAndroid: "",
+    },
     // Adicione mais jogos abaixo seguindo o mesmo formato
 ];
 
