@@ -384,6 +384,61 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
 }
 
+// ── Busca ────────────────────────────────────
+
+function setupSearch() {
+    const searchBtn   = document.getElementById('searchBtn');
+    const searchClose = document.getElementById('searchClose');
+    const headerNormal = document.getElementById('headerNormal');
+    const headerSearch = document.getElementById('headerSearch');
+    const searchInput  = document.getElementById('searchInput');
+    if (!searchBtn) return;
+
+    function openSearch() {
+        headerNormal.style.display = 'none';
+        headerSearch.style.display = 'flex';
+        setTimeout(() => searchInput.focus(), 50);
+    }
+
+    function closeSearch() {
+        searchInput.value = '';
+        headerSearch.style.display = 'none';
+        headerNormal.style.display = 'flex';
+        renderLibrary(); // mostra todos os jogos
+    }
+
+    searchBtn.addEventListener('click', openSearch);
+    searchClose.addEventListener('click', closeSearch);
+
+    searchInput.addEventListener('input', () => {
+        const q = searchInput.value.trim().toLowerCase();
+        const filtered = q
+            ? GAMES.filter(g => g.title.toLowerCase().includes(q))
+            : GAMES;
+
+        const grid = document.getElementById('viewLibrary');
+        grid.innerHTML = '';
+        filtered.forEach((game, i) => {
+            const a = document.createElement('a');
+            a.className = 'game-card';
+            a.href = `?game=${encodeURIComponent(game.slug)}`;
+            a.style.animationDelay = `${i * 0.04}s`;
+            const cover = makeCover(game);
+            const footer = document.createElement('div');
+            footer.className = 'card-footer';
+            footer.innerHTML = `<span class="card-game-title">${game.title}</span><span class="card-cta">VER ▶</span>`;
+            a.appendChild(cover);
+            a.appendChild(footer);
+            grid.appendChild(a);
+        });
+    });
+
+    // Fecha busca com ESC
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSearch();
+    });
+}
+
 // ── Botão atualizar (limpa cache) ────────────
 function setupRefreshButtons() {
     async function hardRefresh(btn) {
@@ -408,4 +463,7 @@ function setupRefreshButtons() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', setupRefreshButtons);
+document.addEventListener('DOMContentLoaded', () => {
+    setupRefreshButtons();
+    setupSearch();
+});

@@ -4,8 +4,7 @@
 
 :root {
     --bg:          #0a0a0f;
-    /* altura do header fixo — conteúdo começa abaixo dele */
-    --header-h:    calc(52px + env(safe-area-inset-top));
+    --header-h:    calc(70px + env(safe-area-inset-top));
     --card:        #111118;
     --accent:      #7c3aed;
     --accent-glow: rgba(124, 58, 237, 0.25);
@@ -114,94 +113,144 @@ body::after {
 }
 .page.visible { opacity: 1; transform: none; }
 
-/* ── Header ── */
+/* ── Header flutuante ── */
 .header {
+    position: fixed;
+    top: calc(10px + env(safe-area-inset-top));
+    left: 14px;
+    right: 14px;
+    border-radius: 20px;
+    background: rgba(16, 16, 24, 0.82);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.55),
+        0 1px 0 rgba(255, 255, 255, 0.05) inset;
+    z-index: 200;
+    padding: 0;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+/* Layout interno do header */
+.header-normal,
+.header-search {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: calc(14px + env(safe-area-inset-top)) 22px 14px;
-    border-bottom: 1px solid var(--border);
-    /* fixed: fica colado no topo, nada passa por cima */
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    background: #0a0a0f;
-    z-index: 200;
-    box-shadow: 0 1px 0 var(--border), 0 6px 28px rgba(0,0,0,0.9);
+    padding: 12px 16px;
+    gap: 10px;
+    height: 52px;
 }
+
+.header-normal { justify-content: space-between; }
 
 .brand {
     font-family: 'Press Start 2P', monospace;
-    font-size: clamp(10px, 2.5vw, 13px);
+    font-size: clamp(9px, 2vw, 11px);
     color: var(--accent);
-    text-shadow: 0 0 10px var(--accent-glow);
-}
-
-.tagline {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px;
-    color: var(--muted);
-    letter-spacing: 2px;
-}
-
-/* Header detalhe */
-.header-detail { gap: 12px; }
-
-.back-btn {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 1px;
-    transition: color 0.2s;
+    text-shadow: 0 0 12px var(--accent-glow);
     white-space: nowrap;
-    flex-shrink: 0;
 }
-.back-btn:hover { color: var(--text); }
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
 
 .detail-title {
     font-family: 'Press Start 2P', monospace;
-    font-size: clamp(7px, 1.8vw, 10px);
-    color: var(--text);
-    letter-spacing: 1px;
+    font-size: clamp(6px, 1.6vw, 9px);
+    color: var(--muted);
+    letter-spacing: 0.5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 160px;
 }
 
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.refresh-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 6px;
+/* Botões do header */
+.icon-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
     color: var(--muted);
-    font-size: 1rem;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: color 0.2s, border-color 0.2s, transform 0.3s;
+    transition: background 0.18s, color 0.18s;
     flex-shrink: 0;
     -webkit-tap-highlight-color: transparent;
+    font-size: 1rem;
     line-height: 1;
 }
 
-.refresh-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
-.refresh-btn.spinning { animation: spin 0.6s linear; }
+.icon-btn:hover,
+.icon-btn:active { background: rgba(255,255,255,0.12); color: var(--text); }
+
+.refresh-btn.spinning { animation: spin 0.55s linear; }
 
 @keyframes spin {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
 }
+
+/* Search state */
+.header-search {
+    gap: 10px;
+    animation: fadeIn 0.18s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.search-icon-sm {
+    color: var(--muted);
+    flex-shrink: 0;
+}
+
+.search-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    caret-color: var(--accent);
+    min-width: 0;
+}
+
+.search-input::placeholder { color: var(--muted); opacity: 0.7; }
+
+/* Remove o X nativo do <input type=search> */
+.search-input::-webkit-search-cancel-button { display: none; }
+
+.search-close {
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: 50%;
+    color: var(--muted);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s, color 0.15s;
+}
+
+.search-close:hover { background: rgba(255,255,255,0.15); color: var(--text); }
 
 /* ══════════════════════════════════════════════
    BIBLIOTECA — Grid

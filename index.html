@@ -47,19 +47,36 @@
 
         <!-- Header (biblioteca) -->
         <header class="header" id="headerLibrary">
-            <span class="brand">ChaveBoy</span>
-            <div class="header-right">
-                <span class="tagline">GAME LIBRARY</span>
-                <button class="refresh-btn" id="refreshBtn" title="Limpar cache e atualizar">↺</button>
+            <!-- Estado normal -->
+            <div class="header-normal" id="headerNormal">
+                <span class="brand">ChaveBoy</span>
+                <div class="header-actions">
+                    <button class="icon-btn search-btn" id="searchBtn" aria-label="Buscar">
+                        <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+                            <circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M11 11L15 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn refresh-btn" id="refreshBtn" aria-label="Atualizar">↺</button>
+                </div>
+            </div>
+            <!-- Estado busca -->
+            <div class="header-search" id="headerSearch" style="display:none">
+                <svg class="search-icon-sm" width="16" height="16" viewBox="0 0 17 17" fill="none">
+                    <circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M11 11L15 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                <input type="search" id="searchInput" class="search-input" placeholder="Buscar jogo..." autocomplete="off" autocorrect="off" spellcheck="false">
+                <button class="search-close" id="searchClose">✕</button>
             </div>
         </header>
 
         <!-- Header (detalhe do jogo) -->
         <header class="header" id="headerDetail" style="display:none">
             <span class="brand">ChaveBoy</span>
-            <div class="header-right">
+            <div class="header-actions">
                 <span class="detail-title" id="detailTitle"></span>
-                <button class="refresh-btn" id="refreshBtnDetail" title="Limpar cache e atualizar">↺</button>
+                <button class="icon-btn refresh-btn" id="refreshBtnDetail" aria-label="Atualizar">↺</button>
             </div>
         </header>
 
