@@ -43,15 +43,6 @@ const CONFIG = {
    ══════════════════════════════════════════════ */
 const GAMES = [
     {
-        slug:            "CHBV-PKM-02/20-OG",
-        title:           "Pokémon Red Version",
-        cover:           "https://i.ibb.co/Dg7GJdZB/cahveboy-02.jpg",
-        download:        "http://187.77.47.177/chaveboy/roms/Pokemon%20-%20Red%20Version%20(USA%2C%20Europe)%20(SGB%20Enhanced).gb",
-        deltaLink:       "delta://game/ea9bcae617fdf159b045185467ae58b2e4a48b9a",
-        tutorialIos:     "",   // ID do vídeo YouTube para iPhone
-        tutorialAndroid: "",   // ID do vídeo YouTube para Android (usa defaultTutorialAndroid se vazio)
-    },
-    {
         slug:            "CHBV-PKM-01/20-OG",
         title:           "Pokémon Yellow Version",
         cover:           "https://i.ibb.co/q38VfKFJ/chaveboy-01.jpg",
@@ -59,6 +50,15 @@ const GAMES = [
         deltaLink:       "delta://game/cc7d03262ebfaf2f06772c1a480c7d9d5f4a38e1",   // Adicionar depois
         tutorialIos:     "",
         tutorialAndroid: "",
+    },
+    {
+        slug:            "CHBV-PKM-02/20-OG",
+        title:           "Pokémon Red Version",
+        cover:           "https://i.ibb.co/Dg7GJdZB/cahveboy-02.jpg",
+        download:        "http://187.77.47.177/chaveboy/roms/Pokemon%20-%20Red%20Version%20(USA%2C%20Europe)%20(SGB%20Enhanced).gb",
+        deltaLink:       "delta://game/ea9bcae617fdf159b045185467ae58b2e4a48b9a",
+        tutorialIos:     "",   // ID do vídeo YouTube para iPhone
+        tutorialAndroid: "",   // ID do vídeo YouTube para Android (usa defaultTutorialAndroid se vazio)
     },
     {
         slug:            "CHBV-PKM-03/20-OG",
@@ -73,7 +73,7 @@ const GAMES = [
         slug:            "CHBV-PKM-04/20-OG",
         title:           "Pokémon Diamond Version (DS)",
         cover:           "https://i.ibb.co/dJ6N25GT/chaveboy-04.jpg",
-        download:        "https://drive.google.com/file/d/1lh7l3AtarjMW9KsXc8T9qcuj9dNgJ4_g/view?usp=sharing",
+        download:        "http://187.77.47.177/chaveboy/roms/1284%20-%20Pokemon%20Diamond%20Version%20(v1.13)%20(E)(Independent).nds",
         deltaLink:       "delta://",   // Adicionar depois
         tutorialIos:     "",
         tutorialAndroid: "",
@@ -82,7 +82,7 @@ const GAMES = [
         slug:            "CHBV-PKM-05/20-OG",
         title:           "Pokémon Black Version (DS)",
         cover:           "https://i.ibb.co/TDZfLyDW/chaveboy-05.jpg",
-        download:        "https://drive.google.com/file/d/1lh7l3AtarjMW9KsXc8T9qcuj9dNgJ4_g/view?usp=sharing",
+        download:        "http://187.77.47.177/chaveboy/roms/Pokemon%20-%20Black%20Version%20(USA%2C%20Europe)%20(NDSi%20Enhanced).nds",
         deltaLink:       "delta://",   // Adicionar depois
         tutorialIos:     "",
         tutorialAndroid: "",
@@ -91,7 +91,7 @@ const GAMES = [
         slug:            "CHBV-SPM-01/20-OG",
         title:           "Mario Kart (DS)",
         cover:           "https://i.ibb.co/tMYJQv26/chaveboy-mariokart.jpg",
-        download:        "https://drive.google.com/file/d/1lh7l3AtarjMW9KsXc8T9qcuj9dNgJ4_g/view?usp=sharing",
+        download:        "http://187.77.47.177/chaveboy/roms/Mario%20Kart%20DS%20(USA)%20(En%2CFr%2CDe%2CEs%2CIt).nds",
         deltaLink:       "delta://game/691e00d9a5dd80b04f80cc7559503e8b06848785",   // Adicionar depois
         tutorialIos:     "",
         tutorialAndroid: "",
