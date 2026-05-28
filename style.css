@@ -116,14 +116,19 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 22px;
+    /* padding-top cobre entalhe do iPhone (Dynamic Island / notch) */
+    padding: calc(18px + env(safe-area-inset-top)) 22px 18px;
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: rgba(10,10,15,0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    /* totalmente opaco — conteúdo não vaza por baixo */
+    background: #0a0a0f;
+    /* blur sutil para suavizar a borda quando rola */
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
     z-index: 100;
+    /* sombra descendente esconde a transição de conteúdo */
+    box-shadow: 0 1px 0 var(--border), 0 4px 24px rgba(0,0,0,0.6);
 }
 
 .brand {
