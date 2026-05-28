@@ -74,7 +74,7 @@ const GAMES = [
         title:           "Pokémon Diamond Version (DS)",
         cover:           "https://i.ibb.co/dJ6N25GT/chaveboy-04.jpg",
         download:        "http://187.77.47.177/chaveboy/roms/1284%20-%20Pokemon%20Diamond%20Version%20(v1.13)%20(E)(Independent).nds",
-        deltaLink:       "delta://",   // Adicionar depois
+        deltaLink:       "delta://game/66d2fbfb0dbc1f86a3d726971196989b950092bc",   // Adicionar depois
         tutorialIos:     "",
         tutorialAndroid: "",
     },
@@ -83,7 +83,7 @@ const GAMES = [
         title:           "Pokémon Black Version (DS)",
         cover:           "https://i.ibb.co/TDZfLyDW/chaveboy-05.jpg",
         download:        "http://187.77.47.177/chaveboy/roms/Pokemon%20-%20Black%20Version%20(USA%2C%20Europe)%20(NDSi%20Enhanced).nds",
-        deltaLink:       "delta://",   // Adicionar depois
+        deltaLink:       "delta://game/26ad0b9967aa279c4a266ee69f52b9b2332399a5",   // Adicionar depois
         tutorialIos:     "",
         tutorialAndroid: "",
     },
