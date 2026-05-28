@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#7c3aed">
+    <title>ChaveBoy</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Boot Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-inner">
+            <div class="loading-logo" id="loadingLogo">ChaveBoy</div>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+            <div class="loading-hint">PRESS START</div>
+        </div>
+    </div>
+
+    <!-- Tela de Senha -->
+    <div class="pw-screen" id="pwScreen" style="display:none">
+        <div class="pw-card" id="pwCard">
+            <div class="pw-icon">🔒</div>
+            <span class="pw-brand">ChaveBoy</span>
+            <p class="pw-label">ACESSO RESTRITO</p>
+            <input
+                type="password"
+                id="pwInput"
+                class="pw-input"
+                placeholder="••••••"
+                maxlength="12"
+                autocomplete="off"
+                inputmode="numeric"
+            >
+            <button class="pw-btn" id="pwBtn">ENTRAR ▶</button>
+            <p class="pw-error" id="pwError"></p>
+        </div>
+    </div>
+
+    <!-- App -->
+    <div class="page" id="mainPage">
+
+        <!-- Header (biblioteca) -->
+        <header class="header" id="headerLibrary">
+            <span class="brand">ChaveBoy</span>
+            <span class="tagline">GAME LIBRARY</span>
+        </header>
+
+        <!-- Header (detalhe do jogo) -->
+        <header class="header header-detail" id="headerDetail" style="display:none">
+            <a class="back-btn" href="index.html">← VOLTAR</a>
+            <span class="detail-title" id="detailTitle"></span>
+        </header>
+
+        <!-- View: Biblioteca -->
+        <main class="games-grid" id="viewLibrary"></main>
+
+        <!-- View: Detalhe do jogo -->
+        <div class="game-detail" id="viewDetail" style="display:none">
+            <div class="detail-cover-wrap">
+                <img class="detail-cover-img" id="detailCoverImg" src="" alt="">
+            </div>
+            <div class="detail-actions" id="detailActions"></div>
+        </div>
+
+        <footer class="footer"><span id="footerText"></span></footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

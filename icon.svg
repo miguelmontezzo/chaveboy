@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+    <rect width="192" height="192" rx="36" fill="#0a0a0f"/>
+    <rect x="12" y="12" width="168" height="168" rx="28" fill="#13131a"/>
+    <text x="96" y="78" font-family="monospace" font-size="52" font-weight="bold" fill="#7c3aed" text-anchor="middle">CB</text>
+    <rect x="36" y="100" width="120" height="6" rx="3" fill="#7c3aed" opacity="0.3"/>
+    <rect x="36" y="114" width="80" height="6" rx="3" fill="#06b6d4" opacity="0.3"/>
+    <rect x="36" y="128" width="100" height="6" rx="3" fill="#7c3aed" opacity="0.2"/>
+    <text x="96" y="168" font-family="monospace" font-size="11" fill="#64748b" text-anchor="middle" letter-spacing="2">GAME LIBRARY</text>
+</svg>
