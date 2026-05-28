@@ -383,3 +383,29 @@ document.addEventListener('DOMContentLoaded', init);
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
 }
+
+// ── Botão atualizar (limpa cache) ────────────
+function setupRefreshButtons() {
+    async function hardRefresh(btn) {
+        btn.classList.add('spinning');
+        try {
+            // Limpa todos os caches do SW
+            const keys = await caches.keys();
+            await Promise.all(keys.map(k => caches.delete(k)));
+            // Força o SW a se reinstalar
+            if ('serviceWorker' in navigator) {
+                const reg = await navigator.serviceWorker.getRegistration();
+                if (reg) await reg.unregister();
+            }
+        } catch {}
+        // Recarrega sem cache do browser
+        location.reload(true);
+    }
+
+    ['refreshBtn', 'refreshBtnDetail'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', () => hardRefresh(btn));
+    });
+}
+
+document.addEventListener('DOMContentLoaded', setupRefreshButtons);

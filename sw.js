@@ -1,27 +1,30 @@
 /* =============================================
-   CHAVEBOY — Service Worker (Offline)
+   CHAVEBOY — Service Worker
+   Estratégia:
+   - index.html + script.js → network-first
+     (sempre busca atualizado; usa cache só offline)
+   - style.css, icons, fontes → cache-first
+     (raramente mudam)
+   - /roms/ → ignora (arquivos grandes)
    ============================================= */
 
-const CACHE = 'chaveboy-v2';
+const CACHE = 'chaveboy-v3';
 
-const ASSETS = [
-    './',
-    './index.html',
+const STATIC = [
     './style.css',
-    './script.js',
-    './manifest.json',
     './icon.svg',
+    './manifest.json',
 ];
 
-// Instala e pré-cacheia os assets
+// Pré-cacheia só os assets estáticos
 self.addEventListener('install', (e) => {
     e.waitUntil(
-        caches.open(CACHE).then(cache => cache.addAll(ASSETS))
+        caches.open(CACHE).then(c => c.addAll(STATIC))
     );
     self.skipWaiting();
 });
 
-// Remove caches antigos
+// Limpa caches antigos
 self.addEventListener('activate', (e) => {
     e.waitUntil(
         caches.keys().then(keys =>
@@ -34,27 +37,54 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
     if (e.request.method !== 'GET') return;
 
-    // Navegações (HTML com ou sem ?game=...) → sempre serve index.html do cache
+    const url = new URL(e.request.url);
+
+    // ROMs — deixa passar direto, sem cache
+    if (url.pathname.includes('/roms/')) return;
+
+    // Navegações (?game=... e raiz) — network-first
     if (e.request.mode === 'navigate') {
-        e.respondWith(
-            caches.match('./index.html').then(cached => cached || fetch(e.request))
-        );
+        e.respondWith(networkFirst(e.request, './index.html'));
         return;
     }
 
-    // Assets estáticos → cache-first, depois rede
-    e.respondWith(
-        caches.match(e.request).then(cached => {
-            if (cached) return cached;
+    // script.js — network-first (muda a cada deploy)
+    if (url.pathname.endsWith('script.js')) {
+        e.respondWith(networkFirst(e.request, null));
+        return;
+    }
 
-            return fetch(e.request).then(response => {
-                if (!response || response.status !== 200 || response.type === 'opaque') {
-                    return response;
-                }
-                const clone = response.clone();
-                caches.open(CACHE).then(cache => cache.put(e.request, clone));
-                return response;
-            }).catch(() => caches.match('./index.html'));
-        })
-    );
+    // Resto (css, fontes, imagens) — cache-first
+    e.respondWith(cacheFirst(e.request));
 });
+
+// Tenta rede → se falhar usa cache
+async function networkFirst(request, fallback) {
+    try {
+        const response = await fetch(request);
+        if (response.ok) {
+            const cache = await caches.open(CACHE);
+            cache.put(request, response.clone());
+        }
+        return response;
+    } catch {
+        const cached = await caches.match(fallback || request);
+        return cached || new Response('Offline — abra o app com internet primeiro.', { status: 503 });
+    }
+}
+
+// Usa cache → se não tiver busca na rede
+async function cacheFirst(request) {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    try {
+        const response = await fetch(request);
+        if (response.ok) {
+            const cache = await caches.open(CACHE);
+            cache.put(request, response.clone());
+        }
+        return response;
+    } catch {
+        return new Response('Offline', { status: 503 });
+    }
+}

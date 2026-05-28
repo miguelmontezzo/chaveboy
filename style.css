@@ -165,6 +165,38 @@ body::after {
     text-overflow: ellipsis;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.refresh-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 1rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, transform 0.3s;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1;
+}
+
+.refresh-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.refresh-btn.spinning { animation: spin 0.6s linear; }
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
 /* ══════════════════════════════════════════════
    BIBLIOTECA — Grid
    ══════════════════════════════════════════════ */
