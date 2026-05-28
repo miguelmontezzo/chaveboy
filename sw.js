@@ -2,7 +2,7 @@
    CHAVEBOY — Service Worker (Offline)
    ============================================= */
 
-const CACHE = 'chaveboy-v1';
+const CACHE = 'chaveboy-v2';
 
 const ASSETS = [
     './',
@@ -10,9 +10,10 @@ const ASSETS = [
     './style.css',
     './script.js',
     './manifest.json',
+    './icon.svg',
 ];
 
-// Instala e pré-cacheia os assets principais
+// Instala e pré-cacheia os assets
 self.addEventListener('install', (e) => {
     e.waitUntil(
         caches.open(CACHE).then(cache => cache.addAll(ASSETS))
@@ -30,28 +31,30 @@ self.addEventListener('activate', (e) => {
     self.clients.claim();
 });
 
-// Cache-first: serve do cache, cai na rede se não tiver
 self.addEventListener('fetch', (e) => {
-    // Ignora requisições não-GET (ex: analytics)
     if (e.request.method !== 'GET') return;
 
+    // Navegações (HTML com ou sem ?game=...) → sempre serve index.html do cache
+    if (e.request.mode === 'navigate') {
+        e.respondWith(
+            caches.match('./index.html').then(cached => cached || fetch(e.request))
+        );
+        return;
+    }
+
+    // Assets estáticos → cache-first, depois rede
     e.respondWith(
         caches.match(e.request).then(cached => {
             if (cached) return cached;
 
-            // Busca na rede e armazena em cache
             return fetch(e.request).then(response => {
-                // Só cacheia respostas válidas
                 if (!response || response.status !== 200 || response.type === 'opaque') {
                     return response;
                 }
                 const clone = response.clone();
                 caches.open(CACHE).then(cache => cache.put(e.request, clone));
                 return response;
-            }).catch(() => {
-                // Offline e sem cache: retorna página principal como fallback
-                return caches.match('./index.html');
-            });
+            }).catch(() => caches.match('./index.html'));
         })
     );
 });
