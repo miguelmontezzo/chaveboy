@@ -46,10 +46,10 @@ const GAMES = [
         slug:            "CHBV-PKM-02/20-OG",
         title:           "Pokémon Red Version",
         cover:           "https://i.ibb.co/Dg7GJdZB/cahveboy-02.jpg",
-        play:            "",
         download:        "https://drive.google.com/file/d/1ZZWYormsYwt5VfHJKZZ6GEeHY3KJbr-A/view?usp=sharing",
-        tutorialIos:     "",   // Cole aqui o ID do vídeo YouTube para iPhone
-        tutorialAndroid: "",   // Cole aqui o ID do vídeo YouTube para Android
+        deltaLink:       "delta://game/ea9bcae617fdf159b045185467ae58b2e4a48b9a",
+        tutorialIos:     "",   // ID do vídeo YouTube para iPhone
+        tutorialAndroid: "",   // ID do vídeo YouTube para Android (usa defaultTutorialAndroid se vazio)
     },
     // Adicione mais jogos abaixo seguindo o mesmo formato
 ];
@@ -143,7 +143,17 @@ function makeEmulatorSection(game) {
             : (game.tutorialAndroid || CONFIG.defaultTutorialAndroid);
         const btnCls  = platform === 'ios' ? 'btn-emu-ios' : 'btn-emu-android';
 
-        // Botão de download do emulador
+        // Botão JOGAR — só iOS com deltaLink configurado
+        if (platform === 'ios' && game.deltaLink) {
+            const btnPlay = document.createElement('a');
+            btnPlay.href      = game.deltaLink;
+            btnPlay.className = 'btn btn-play';
+            btnPlay.innerHTML = '<span class="btn-icon">▶</span>JOGAR NO DELTA';
+            btnPlay.addEventListener('click', (e) => addRipple(btnPlay, e));
+            content.appendChild(btnPlay);
+        }
+
+        // Botão baixar emulador
         const a = document.createElement('a');
         a.href      = emu.url;
         a.className = `btn ${btnCls}`;
@@ -242,10 +252,6 @@ function renderDetail(game) {
 
     const actions = document.getElementById('detailActions');
     actions.innerHTML = '';
-
-    // Botão Jogar (opcional)
-    const btnPlay = makeButton('JOGAR', game.play, 'btn-play', '▶');
-    if (btnPlay) actions.appendChild(btnPlay);
 
     // Botão Baixar Jogo
     const btnDl = makeButton('BAIXAR JOGO', game.download, 'btn-download', '⬇');
