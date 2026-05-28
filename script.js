@@ -56,7 +56,16 @@ const GAMES = [
         title:           "Pokémon Yellow Version",
         cover:           "https://i.ibb.co/q38VfKFJ/chaveboy-01.jpg",
         download:        "https://drive.google.com/file/d/1ly7pXkRv7xXXiK_rVvrilv3ALWVqu1ei/view?usp=sharing",
-        deltaLink:       "",   // Adicionar depois
+        deltaLink:       "delta://game/cc7d03262ebfaf2f06772c1a480c7d9d5f4a38e1",   // Adicionar depois
+        tutorialIos:     "",
+        tutorialAndroid: "",
+    },
+    {
+        slug:            "CHBV-PKM-03/20-OG",
+        title:           "Pokémon Blue Version",
+        cover:           "https://i.ibb.co/7NzzTZpL/chaveboy-03.jpg",
+        download:        "https://drive.google.com/file/d/1lh7l3AtarjMW9KsXc8T9qcuj9dNgJ4_g/view?usp=sharing",
+        deltaLink:       "delta://game/d7037c83e1ae5b39bde3c30787637ba1d4c48ce2",   // Adicionar depois
         tutorialIos:     "",
         tutorialAndroid: "",
     },
