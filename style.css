@@ -116,19 +116,19 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* padding-top cobre entalhe do iPhone (Dynamic Island / notch) */
     padding: calc(18px + env(safe-area-inset-top)) 22px 18px;
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    /* totalmente opaco — conteúdo não vaza por baixo */
     background: #0a0a0f;
-    /* blur sutil para suavizar a borda quando rola */
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    z-index: 100;
-    /* sombra descendente esconde a transição de conteúdo */
-    box-shadow: 0 1px 0 var(--border), 0 4px 24px rgba(0,0,0,0.6);
+    z-index: 200;
+    box-shadow: 0 1px 0 var(--border), 0 6px 28px rgba(0,0,0,0.8);
+    /* Força camada de composição própria no GPU —
+       corrige bug do iOS Safari onde cards com transform
+       passam por cima do header sticky */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .brand {
@@ -222,6 +222,7 @@ body::after {
     border-radius: var(--radius);
     overflow: hidden;
     cursor: pointer;
+    isolation: isolate;
     text-decoration: none;
     color: var(--text);
     display: block;
